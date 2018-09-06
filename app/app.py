@@ -1,10 +1,11 @@
 from flask import Flask, Blueprint, g, flash, redirect, render_template, request, url_for
 app = Flask(__name__, instance_relative_config=True)
 
+import os
 import quandl
 import pandas as pd
 
-quandl.ApiConfig.api_key='aB4qq8AmdTv_grnwjK86'
+quandl.ApiConfig.api_key=os.environ['QUANDL_KEY']
 
 from bokeh.embed import components
 from bokeh.plotting import figure,show
@@ -14,7 +15,6 @@ from math import pi
 bokeh_css = CDN.render_css()
 bokeh_js = CDN.render_js()
 
-tickerList=['ZUMZ','XOXO','WRK']
 #===========================================
 @app.route('/', methods=('GET', 'POST'))
 def index():
@@ -29,7 +29,7 @@ def graph(tickerSymbol):
     if request.method == 'POST':
         return redirect(url_for('graph', tickerSymbol=request.form['tickerSymbol']))
         
-    df = quandl.get_table('WIKI/PRICES', qopts = { 'columns': ['ticker', 'date', 'close','open','adj_close','adj_open'] }, ticker=tickerList,date = { 'gte': '2018-01-01', 'lte': '2018-01-31' })
+    df = quandl.get_table('WIKI/PRICES', qopts = { 'columns': ['ticker', 'date', 'close','open','adj_close','adj_open'] },date = { 'gte': '2018-01-01', 'lte': '2018-01-31' })
     p = figure(width=500, height=500,x_axis_type='datetime', tools='xpan,xwheel_zoom,box_zoom,reset,save', title='Quandl WIKI EOD Stock Prices: Jaunary, 2018')
     p.xaxis.major_label_orientation = pi/6
     p.xaxis.axis_label = 'Date'
