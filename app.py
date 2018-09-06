@@ -4,7 +4,7 @@ app = Flask(__name__, instance_relative_config=True)
 import quandl
 import pandas as pd
 
-quandl.ApiConfig.api_key=api_key #modify here by pasting the key
+quandl.ApiConfig.api_key='aB4qq8AmdTv_grnwjK86'
 
 from bokeh.embed import components
 from bokeh.plotting import figure,show
