@@ -5,6 +5,10 @@ import os
 import quandl
 import pandas as pd
 
+s=os.environ.get('QUANDL_KEY')
+print(s)
+print(type(s))
+
 quandl.ApiConfig.api_key=os.environ.get('QUANDL_KEY')
 
 from bokeh.embed import components
