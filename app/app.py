@@ -5,7 +5,7 @@ import os
 import quandl
 import pandas as pd
 
-quandl.ApiConfig.api_key=os.environ['QUANDL_KEY']
+quandl.ApiConfig.api_key=os.environ.get('QUANDL_KEY')
 
 from bokeh.embed import components
 from bokeh.plotting import figure,show
